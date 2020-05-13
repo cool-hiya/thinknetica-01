@@ -2,7 +2,7 @@ function calculateTriangleSquare() {
     let width;
 
     do {
-        width = prompt('Расчет площади правильного треугольника \nПожалуйста, введите длину стороны')
+        width = prompt('Расчет площади правильного треугольника \nПожалуйста, введите длину стороны', '')
 
         if (width) {
             if (parseInt(width)) {
@@ -16,4 +16,14 @@ function calculateTriangleSquare() {
     } while (width !== null && !width) {}
 }
 
-//calculateTriangleSquare();
+
+function reverseWord(){
+    const word = prompt('Введите слово для реверсии', '');
+
+    if(word){
+        alert(word.split('').reverse().join(''));
+    }
+}
+
+// calculateTriangleSquare();
+// reverseWord();
