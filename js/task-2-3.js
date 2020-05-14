@@ -7,7 +7,11 @@ function formatDate() {
         date = new Date(arr[2], arr[0] - 1, arr[1]);
 
         if (!isNaN(date)) {
-            alert(date.toLocaleDateString());
+            /** Первый вариант */
+            alert(date.toLocaleDateString('ru'));
+            
+            /** Второй вариант */
+            alert(`${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`);
             return;
         }
     }
