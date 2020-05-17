@@ -1,8 +1,8 @@
 function formatTime() {
-    let str = '3.2 am';
+    let str = '12:a5 amasd';
     str = str.replace(' ', '').trim();
 
-    const periodMatch = str.match(/am|pm/);
+    const periodMatch = str.match(/am$|pm$/);
     const period = periodMatch && periodMatch[0];
 
     if (!period) {

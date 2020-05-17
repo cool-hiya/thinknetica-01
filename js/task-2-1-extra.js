@@ -3,7 +3,7 @@ function generateMultiTable() {
 
     for (let i = 1; i <= 10; i++) {
         for (let j = 1; j <= 10; j++) {
-            const num = (i * j + '   ').substr(0, 3);
+            const num = ('   ' + i * j).substr(-4);
             str += num;
 
             if (j === 1) {
