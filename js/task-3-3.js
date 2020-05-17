@@ -166,10 +166,6 @@ function buyTicket(flightName, buyTime, fullName, type = 0) {
     };
 }
 
-const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
-console.log(a);
-
-
 function displayFlights() {
     console.log('*** List of all flights ***');
     console.table(flights);
@@ -219,13 +215,71 @@ function eRegistration(ticket, fullName, nowTime) {
     }
 
     const registrationStarts = flights[foundTicket.flight].registrationStarts;
-    const timeMinutesDiff = (registrationStarts - nowTime) / 60000;
 
-    if (!(timeMinutesDiff >= 60 && timeMinutesDiff <= 300)) {
-        throw new Error('Incorrect registration time');
+    if (isEnableToRegister(registrationStarts, nowTime)) {
+        foundTicket.registrationTime = nowTime;
+    } else {
+        throw new Error('Invalid registartion time');      
     }
-
-    ticket.registrationTime = nowTime;
 }
 
-eRegistration('BH119-B50', 'Ivanov I. I.', makeTime(8, 0));
+
+function isEnableToRegister(registrationStart, nowTime) {
+    const timeMinutesDiff = (registrationStart - nowTime) / 60000;
+    return timeMinutesDiff >= 60 && timeMinutesDiff <= 300;
+}
+
+/**
+ * Отчет о рейсе на данный момент
+ * 
+ * @typedef {Object} Report
+ * @property {string} flight Номер рейса
+ * @property {boolean} registration Доступна регистрация на самолет
+ * @property {boolean} complete Регистрация завершена или самолет улетел
+ * @property {number} countOfSeats Общее количество мест
+ * @property {number} reservedSeats Количество купленных (забронированных) мест
+ * @property {number} registeredSeats Количество пассажиров, прошедших регистрацию
+ */
+
+/**
+* Отчет о рейсе на данный момент
+* 
+* @typedef {Object} Report
+* @property {string} flight Номер рейса
+* @property {boolean} registration Доступна регистрация на самолет
+* @property {boolean} complete Регистрация завершена или самолет улетел
+* @property {number} countOfSeats Общее количество мест
+* @property {number} reservedSeats Количество купленных (забронированных) мест
+* @property {number} registeredSeats Количество пассажиров, прошедших регистрацию
+*/
+
+/**
+* Функция генерации отчета по рейсу
+* 
+*  * проверка рейса
+*  * подсчет
+* 
+* @param {string} flight номер рейса
+* @param {number} nowTime текущее время
+* @returns {Report} отчет
+*/
+function flightReport(flight, nowTime) {
+    const foundFlight = flights[flight];
+    const countOfSeats = foundFlight.seats + foundFlight.businessSeats;
+    const reservedSeats = foundFlight.tickets.length;
+    const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
+    const registration = isEnableToRegister(foundFlight.registrationStarts, nowTime);
+
+    return {
+        flight: flight,
+        registration: registration,
+        complete: !registration,
+        countOfSeats: countOfSeats,
+        reservedSeats: reservedSeats,
+        registeredSeats: registeredSeats
+    }
+}
+
+const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
+eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(8, 0));
+console.table(flightReport('BH118', makeTime(8, 0)));
