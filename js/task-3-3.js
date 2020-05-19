@@ -16,7 +16,7 @@ let flights = {
         seats: 28,
         businessSeats: 4,
         registrationStarts: makeTime(10, 0),
-        registartionEnds: makeTime(15, 0),
+        registrationEnds: makeTime(15, 0),
         tickets: [
             {
                 id: 'BH118-B50',
@@ -214,9 +214,7 @@ function eRegistration(ticket, fullName, nowTime) {
         throw new Error('Passenger data is incorrect');
     }
 
-    const registrationStarts = flights[foundTicket.flight].registrationStarts;
-
-    if (isEnableToRegister(registrationStarts, nowTime)) {
+    if (isEnableToRegister(flights[foundTicket.flight], nowTime)) {
         foundTicket.registrationTime = nowTime;
     } else {
         throw new Error('Invalid registartion time');      
@@ -224,9 +222,8 @@ function eRegistration(ticket, fullName, nowTime) {
 }
 
 
-function isEnableToRegister(registrationStart, nowTime) {
-    const timeMinutesDiff = (registrationStart - nowTime) / 60000;
-    return timeMinutesDiff >= 60 && timeMinutesDiff <= 300;
+function isEnableToRegister(flight, nowTime) {
+    return nowTime >= flight.registrationStarts && nowTime <= flight.registrationEnds;
 }
 
 /**
@@ -268,7 +265,7 @@ function flightReport(flight, nowTime) {
     const countOfSeats = foundFlight.seats + foundFlight.businessSeats;
     const reservedSeats = foundFlight.tickets.length;
     const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
-    const registration = isEnableToRegister(foundFlight.registrationStarts, nowTime);
+    const registration = isEnableToRegister(foundFlight, nowTime);
 
     return {
         flight: flight,
@@ -281,5 +278,5 @@ function flightReport(flight, nowTime) {
 }
 
 const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
-eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(8, 0));
-console.table(flightReport('BH118', makeTime(8, 0)));
+eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(10, 0));
+console.table(flightReport('BH118', makeTime(16, 0)));
