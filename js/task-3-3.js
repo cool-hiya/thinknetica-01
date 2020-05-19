@@ -262,7 +262,7 @@ function isEnableToRegister(flight, nowTime) {
 */
 function flightReport(flight, nowTime) {
     const foundFlight = flights[flight];
-    const countOfSeats = foundFlight.seats + foundFlight.businessSeats;
+    const countOfSeats = foundFlight.seats;
     const reservedSeats = foundFlight.tickets.length;
     const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
     const registration = isEnableToRegister(foundFlight, nowTime);
