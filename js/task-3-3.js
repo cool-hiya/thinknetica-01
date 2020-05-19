@@ -16,7 +16,7 @@ let flights = {
         seats: 28,
         businessSeats: 4,
         registrationStarts: makeTime(10, 0),
-        registartionEnds: makeTime(15, 0),
+        registrationEnds: makeTime(15, 0),
         countOfReservations: 1,
         tickets: [
             {
@@ -217,9 +217,7 @@ function eRegistration(ticket, fullName, nowTime) {
         throw new Error('Passenger data is incorrect');
     }
 
-    const registrationStarts = flights[foundTicket.flight].registrationStarts;
-
-    if (isEnableToRegister(registrationStarts, nowTime)) {
+    if (isEnableToRegister(flights[foundTicket.flight], nowTime)) {
         foundTicket.registrationTime = nowTime;
     } else {
         throw new Error('Invalid registartion time');
@@ -227,9 +225,8 @@ function eRegistration(ticket, fullName, nowTime) {
 }
 
 
-function isEnableToRegister(registrationStart, nowTime) {
-    const timeMinutesDiff = (registrationStart - nowTime) / 60000;
-    return timeMinutesDiff >= 60 && timeMinutesDiff <= 300;
+function isEnableToRegister(flight, nowTime) {
+    return nowTime >= flight.registrationStarts && nowTime <= flight.registrationEnds;
 }
 
 /**
@@ -271,10 +268,10 @@ function isEnableToRegister(registrationStart, nowTime) {
 */
 function flightReport(flight, nowTime) {
     const foundFlight = flights[flight];
-    const countOfSeats = foundFlight.seats + foundFlight.businessSeats;
+    const countOfSeats = foundFlight.seats;
     const reservedSeats = foundFlight.tickets.length;
     const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
-    const registration = isEnableToRegister(foundFlight.registrationStarts, nowTime);
+    const registration = isEnableToRegister(foundFlight, nowTime);
     const countOfReservations = foundFlight.countOfReservations;
     const countOfReverts = countOfReservations - reservedSeats;
     const percentOfReverts = countOfReverts / countOfReservations
@@ -334,7 +331,7 @@ function revertTicket(ticket, nowTime) {
 }
 
 const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
-eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(8, 0));
-console.table(flightReport('BH118', makeTime(8, 0)));
+eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(10, 0));
+console.table(flightReport('BH118', makeTime(11, 0)));
 console.log(revertTicket('BH118-B50', makeTime(7, 0)));
 console.table(flightReport('BH118', makeTime(8, 0)));
