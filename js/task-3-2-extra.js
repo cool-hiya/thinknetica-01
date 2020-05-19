@@ -34,7 +34,7 @@ function encodeText(text) {
     const codes = new Set();
     let words = text.split(' ');
 
-    words = words
+    const dictionary = words
         .reduce((acc, current) => {
             const existedWord = acc.find(el => el.word === current);
 
@@ -50,18 +50,24 @@ function encodeText(text) {
             let code;
 
             do {
-                code = Number(Math.floor(Math.random() * 500)).toString(32);
-                codes.add(code);
+                code = Math.floor(Math.random() * 500).toString(32);
             }
-            while (!codes.has(code))
+            while (codes.has(code))
+
+            codes.add(code);
 
             return Object.assign({}, word, {code: code})
         });
 
-    const encodedText = words.map(word => word.code).join();
+    let encodedText = [];
+    words.forEach(word => {
+        encodedText.push(dictionary.find(el => el.word === word).code);
+    });;
+
+    encodedText = encodedText.join();
 
     return {
-        dictionary: words,
+        dictionary: dictionary,
         encodedText: encodedText
     }
 }
