@@ -1,24 +1,33 @@
-<html>
-    <head></head>
-    <body>
-        <p>Hello world!</p>
-        <!--<script src="js/task-2-1-extra.js"></script>
-        <script src="js/task-2-2-extra.js"></script>
-        <script src="js/task-2-3-extra.js"></script>
-        <script src="js/task-2-5-extra.js"></script>
-        <script src="js/task-2-4-extra.js"></script>-->
+<!DOCTYPE html>
+<html lang="en">
 
-        <!--<script src="js/task-2-1.js"></script>
-        <script src="js/task-2-2.js"></script>
-        <script src="js/task-2-3.js"></script>
-        <script src="js/task-2-4.js"></script>
-        <script src="js/task-2-5.js"></script>
-        <script src="js/task-2-6.js"></script>
-        <script src="js/task-2-7.js"></script>
-        <script src="js/task-3-1-extra.js"></script>-->
-        <script src="js/task-3-2-extra.js"></script>
-        <!--<script src="js/task-3-1.js"></script>
-        <script src="js/task-3-2.js"></script>
-        <script src="js/task-3-3.js"></script>-->
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Testing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+    <!-- добавляем фреймворк тестирования mocha -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+    <script>mocha.setup('bdd');</script>
+    <!-- добавим chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+    <script>
+        // chai предоставляет большое количество функций. Объявим assert глобально
+        var assert = chai.assert;
+    </script>
+</head>
+
+<body>
+    <!-- Добавление скриптов -->
+    <script src="objects/task-1/task-1.js"></script>
+    <script src="objects/task-1/task-1.test.js"></script>
+
+    <!-- элемент с id="mocha" будет содержать результаты тестов -->
+    <div id="mocha"></div>
+
+    <!-- запускаем тесты! -->
+    <script>
+        mocha.run();
+    </script>
+</body>
+
 </html>
