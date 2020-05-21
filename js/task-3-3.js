@@ -17,6 +17,7 @@ let flights = {
         businessSeats: 4,
         registrationStarts: makeTime(10, 0),
         registrationEnds: makeTime(15, 0),
+        countOfReservations: 1,
         tickets: [
             {
                 id: 'BH118-B50',
@@ -35,6 +36,7 @@ let flights = {
         businessSeats: 4,
         registrationStarts: makeTime(10, 0),
         registartionEnds: makeTime(15, 0),
+        countOfReservations: 1,
         tickets: [
             {
                 id: 'BH119-B50',
@@ -158,6 +160,7 @@ function buyTicket(flightName, buyTime, fullName, type = 0) {
     }
 
     flight.tickets.push(ticket);
+    flight.countOfReservations++;
 
     // return Object.assign({}, ticket);
     return {
@@ -217,7 +220,7 @@ function eRegistration(ticket, fullName, nowTime) {
     if (isEnableToRegister(flights[foundTicket.flight], nowTime)) {
         foundTicket.registrationTime = nowTime;
     } else {
-        throw new Error('Invalid registartion time');      
+        throw new Error('Invalid registartion time');
     }
 }
 
@@ -248,6 +251,9 @@ function isEnableToRegister(flight, nowTime) {
 * @property {number} countOfSeats Общее количество мест
 * @property {number} reservedSeats Количество купленных (забронированных) мест
 * @property {number} registeredSeats Количество пассажиров, прошедших регистрацию
+* @property {number} countOfReservations Количество всех регистраций мест !!
+* @property {number} countOfReverts Количество возвратов билетов
+* @property {number} percentOfReverts Процент возвратов от общего числа бронирований !!
 */
 
 /**
@@ -266,6 +272,9 @@ function flightReport(flight, nowTime) {
     const reservedSeats = foundFlight.tickets.length;
     const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
     const registration = isEnableToRegister(foundFlight, nowTime);
+    const countOfReservations = foundFlight.countOfReservations;
+    const countOfReverts = countOfReservations - reservedSeats;
+    const percentOfReverts = countOfReverts / countOfReservations
 
     return {
         flight: flight,
@@ -273,10 +282,56 @@ function flightReport(flight, nowTime) {
         complete: !registration,
         countOfSeats: countOfSeats,
         reservedSeats: reservedSeats,
-        registeredSeats: registeredSeats
+        registeredSeats: registeredSeats,
+        countOfReservations: countOfReservations,
+        countOfReverts: countOfReverts,
+        percentOfReverts: percentOfReverts
     }
+}
+
+/**
+ * Функция возврата билета
+ * 
+ *  * проверка рейса
+ *  * проверка билета
+ *  * вернуть билет можно если до рейса не менее 3 часов
+ *  * вернуть билет можно это не бизнес класс
+ * 
+ * @param {string} ticket номер билета
+ * @param {number} nowTime текущее время
+ * @returns {boolean} удалось ли отменить билет
+ */
+function revertTicket(ticket, nowTime) {
+    const ticketId = ticket;
+    let foundTicket;
+
+    const ticketExists = Object.values(flights)
+        .map(flight => flight.tickets)
+        .some(tickets => {
+            foundTicket = tickets.find(ticket => ticket.id === ticketId);
+            return !!foundTicket
+        });
+
+    if (!ticketExists) {
+        throw new Error('The ticket doesn\'t exist');
+    }
+
+    const flight = flights[foundTicket.flight];
+    const timeMinutesDiff = (flight.registrationStarts - nowTime) / 60000;
+    const enableToReturnTime = timeMinutesDiff >= 180;
+    const isStandart = foundTicket.type == 0;
+
+    if (enableToReturnTime && isStandart) {
+        const ticketIndex = flight.tickets.findIndex(ticket => ticket.id === ticketId);
+        flight.tickets.splice(ticketIndex, 1);
+        return true;
+    }
+
+    return false;
 }
 
 const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
 eRegistration('BH118-B50', 'Ivanov I. I.', makeTime(10, 0));
-console.table(flightReport('BH118', makeTime(16, 0)));
+console.table(flightReport('BH118', makeTime(11, 0)));
+console.log(revertTicket('BH118-B50', makeTime(7, 0)));
+console.table(flightReport('BH118', makeTime(8, 0)));
