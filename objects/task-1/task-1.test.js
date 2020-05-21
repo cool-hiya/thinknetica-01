@@ -53,3 +53,30 @@ describe('sumOfPositive', () => {
         assert.isNumber(result.sum);
     });
 });
+
+describe('isNumber', () => {
+
+    it('defines 0 as a number', () => {
+        expect(isNumber(0)).to.be.true;
+    });
+
+    it('defines \'4\' as not a number', () => {
+        expect(isNumber('4')).to.be.false;
+    });
+
+    it('defines NaN as not a number', () => {
+        expect(isNumber(NaN)).to.be.false;
+    });
+
+    it('defines 10 as a number', () => {
+        expect(isNumber(10)).to.be.true;
+    });
+
+    it('defines \' \' as not  a number', () => {
+        expect(isNumber('')).to.be.false;
+    });
+
+    it('defines Infinity as not  a number', () => {
+        expect(isNumber(Infinity)).to.be.false;
+    });
+});
