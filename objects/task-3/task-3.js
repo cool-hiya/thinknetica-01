@@ -267,19 +267,34 @@ function isEnableToRegister(flight, nowTime) {
 * @returns {Report} отчет
 */
 function flightReport(flight, nowTime) {
+
+    if (typeof flight !== 'string') {
+        throw new Error('Flight param should be a string');
+    }
+
+    if(!this.isNumber(nowTime)){
+        throw new Error('Time param should be a number');
+    }
+
     const foundFlight = flights[flight];
+
+    if(!foundFlight){
+        throw new Error('The flight doesn\'t exist');
+    }
+
     const countOfSeats = foundFlight.seats;
     const reservedSeats = foundFlight.tickets.length;
     const registeredSeats = foundFlight.tickets.filter(ticket => ticket.registrationTime != null).length;
     const registration = isEnableToRegister(foundFlight, nowTime);
+    const complete = nowTime >= foundFlight.registrationEnds;
     const countOfReservations = foundFlight.countOfReservations;
     const countOfReverts = countOfReservations - reservedSeats;
-    const percentOfReverts = countOfReverts / countOfReservations
+    const percentOfReverts = +(countOfReverts / countOfReservations).toFixed(2)
 
     return {
         flight: flight,
         registration: registration,
-        complete: !registration,
+        complete: complete,
         countOfSeats: countOfSeats,
         reservedSeats: reservedSeats,
         registeredSeats: registeredSeats,
@@ -302,6 +317,15 @@ function flightReport(flight, nowTime) {
  * @returns {boolean} удалось ли отменить билет
  */
 function revertTicket(ticket, nowTime) {
+       
+    if (typeof ticket !== 'string') {
+        throw new Error('Ticket param should be a string');
+    }
+
+    if(!this.isNumber(nowTime)){
+        throw new Error('Time param should be a number');
+    }
+
     const ticketId = ticket;
     let foundTicket;
 
@@ -328,6 +352,10 @@ function revertTicket(ticket, nowTime) {
     }
 
     return false;
+}
+
+function isNumber(number) {
+    return !isNaN(parseFloat(number)) && isFinite(number) && (typeof number === 'number');
 }
 
 const a = buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
