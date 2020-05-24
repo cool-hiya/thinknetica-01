@@ -35,3 +35,11 @@ function flightDetails(flightName) {
 function random(from, to) {
     return Math.floor(Math.random() * (to - from) + from);
 }
+
+function isEnableToRegister(flight, nowTime) {
+    return nowTime >= flight.registrationStarts && nowTime <= flight.registrationEnds;
+}
+
+function isNumber(number) {
+    return !isNaN(parseFloat(number)) && isFinite(number) && (typeof number === 'number');
+}
