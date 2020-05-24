@@ -3,7 +3,7 @@ function domTree1(el) {
         return;
     }
 
-    if (!el.children) {
+    if (el.children.length === 0) {
         return;
     } else {
         [...el.children].forEach((el) => {
@@ -18,7 +18,7 @@ function domTree2(el) {
         return;
     }
 
-    if (!el.children) {
+    if (el.children.length === 0) {
         return;
     } else {
         for (let i = 0; i < el.children.length; i++) {
@@ -34,7 +34,7 @@ function domTree3(el) {
         return;
     }
 
-    if (!el.children) {
+    if (el.children.length === 0) {
         return;
     } else {
         for (let child of el.children) {
@@ -44,4 +44,4 @@ function domTree3(el) {
     }
 }
 
-console.log(domTree3(document));
+console.log(domTree1(document));
