@@ -40,36 +40,6 @@ describe('encodeText', () => {
             .map(code => result.dictionary.find(word => word.code === code).word)
             .join(' ')
 
-         expect(text).to.equal(decodedText);
-    });
-
-    describe("results with a proper structured object:", function () {
-        const text = 'Lorem ipsum ipsum dolor.';
-        const result = encodeText(text);
-
-        it('includes \'dictionary\' property', () => {
-            expect(result.dictionary).to.exist;
-        });
-
-        it('\'dictionary\' property is an array', () => {
-            assert.isArray(result.dictionary);
-        });
-
-        it('\'dictionary\' property is an array of objects {word: string, count: number, code: string}', () => {
-            const firstEl = result.dictionary[0];
-
-            assert.isString(firstEl.word);
-            assert.isString(firstEl.code);
-            assert.isNumber(firstEl.count);
-        });
-
-        it('includes \'encodedText\' property', () => {
-            expect(result.encodedText).to.exist;
-        });
-
-        it('\'encodedText\' property is a string', () => {
-            assert.isString(result.encodedText);
-        });
-
+        expect(text).to.equal(decodedText);
     });
 });

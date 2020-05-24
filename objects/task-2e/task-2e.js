@@ -37,7 +37,15 @@ function encodeText(text) {
     }
 
     const codes = new Set();
-    let words = text ? text.split(' ') : [];
+
+    if (!text) {
+        return {
+            dictionary: [],
+            encodedText: ''
+        }
+    }
+
+    let words = text.split(' ');
 
     const dictionary = words
         .reduce((acc, current) => {

@@ -55,17 +55,6 @@ describe('flightReport', () => {
         assert.deepEqual(initialObj, flights);
     });
 
-    describe("results with a proper structured object:", function () {
-        const result = flightReport('BH118', time);
-        const props = ['flight', 'registration', 'complete', 'countOfSeats', 'reservedSeats', 'registeredSeats', 'countOfReservations', 'countOfReverts', 'percentOfReverts']
-
-        props.forEach(prop => {
-            it(`includes \'${prop}\' property`, () => {
-                expect(result[prop]).to.exist;
-            });
-        })
-    });
-
     it('should create proper report', () => {
         const result = flightReport('BH118', time);
 
@@ -140,9 +129,5 @@ describe('revertTicket', () => {
 
     it('doesn\'t revert ticket if it\'s standart and less than 3 hours before registration', () => {
         expect(revertTicket('BH118-B52', new Date().setHours(12, 0, 0))).to.equal(false);
-    });
-
-    it('doesn\'t revert ticket if it\'s business', () => {
-        expect(revertTicket('BH118-B52', new Date().setHours(7, 0, 0))).to.equal(false);
     });
 });
