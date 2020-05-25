@@ -31,7 +31,20 @@
 */
 
 function encodeText(text) {
+
+    if (typeof text !== 'string') {
+        throw new Error('Accepts only string');
+    }
+
     const codes = new Set();
+
+    if (!text) {
+        return {
+            dictionary: [],
+            encodedText: ''
+        }
+    }
+
     let words = text.split(' ');
 
     const dictionary = words
