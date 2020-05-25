@@ -1,6 +1,6 @@
 function parseTemplate(el, data) {
-    if (!el) {
-        return;
+    if (!el || !(el && el instanceof HTMLElement)) {
+        throw new Error('HTMLElement is not defined');
     }
 
     const dataFields= [...el.querySelectorAll('[data-field]')];
