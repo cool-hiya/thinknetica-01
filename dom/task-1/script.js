@@ -1,4 +1,4 @@
-function domTree1(el) {
+function domTree1(el, deep = 0) {
     if (!el) {
         return;
     }
@@ -7,41 +7,18 @@ function domTree1(el) {
         return;
     } else {
         [...el.children].forEach((el) => {
-            console.log(el.tagName);
-            domTree1(el);
+            console.log('  '.repeat(deep) + el.tagName);
+            domTree1(el, deep + 1);
         });
     }
 }
 
-function domTree2(el) {
-    if (!el) {
-        return;
-    }
+function domTree2(node, deep = 0) {
+    console.log('  '.repeat(deep), node.nodeName, node.nodeValue);
 
-    if (el.children.length === 0) {
-        return;
-    } else {
-        for (let i = 0; i < el.children.length; i++) {
-            const child = el.children[i];
-            console.log(child.tagName);
-            domTree2(child);
-        }
+    for (let item = node.firstChild; item; item = item.nextSibling) {
+        domTree2(item, deep + 1);
     }
 }
 
-function domTree3(el) {
-    if (!el) {
-        return;
-    }
-
-    if (el.children.length === 0) {
-        return;
-    } else {
-        for (let child of el.children) {
-            console.log(child.tagName);
-            domTree3(child);
-        }
-    }
-}
-
-console.log(domTree1(document));
+domTree2(document);
