@@ -37,3 +37,5 @@ console.log(bigWorld);
 const report = flightReport(bigWorld, 'BH118', makeTime(8, 0));
 
 console.table(report);
+
+flightDetails(bigWorld, 'BH118');
