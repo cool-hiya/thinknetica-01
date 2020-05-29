@@ -3,42 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Testing</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
-    <!-- добавляем фреймворк тестирования mocha -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
-    <script>mocha.setup('bdd');</script>
-    <!-- добавим chai -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
-    <script>
-        // chai предоставляет большое количество функций. Объявим assert глобально
-        var assert = chai.assert;
-        var expect = chai.expect;
-    </script>
+    <title>FCS</title>
 </head>
 
 <body>
-    <!-- добавляем скрипты -->
-    <script src="fcs.js"></script>
-    <script src="fcs.utils.js"></script>
-    <script src="add-flight.js"></script>
-    <script src="buy-ticket.js"></script>
-    <script src="e-registration.js"></script>
-    <script src="flight-report.js"></script>
-    <script src="flight-details.js"></script>
+    <script src="utils.js"></script>
+    <script src="types.js"></script>
+    <script src="core/utils.js"></script>
+    <script src="core/add-flight.js"></script>
+    <script src="core/buy-ticket.js"></script>
+    <script src="core/e-registration.js"></script>
+    <script src="core/flight-report.js"></script>
+    <script src="ui/flight-details.js"></script>
     <script src="script.js"></script>
-
-    <script src="e-registration.test.js"></script>
-    <script src="flight-report.test.js"></script>
-    <script src="flight-details.test.js"></script>
-
-    <!-- элемент с id="mocha" будет содержать результаты тестов -->
-    <div id="mocha"></div>
-
-    <!-- запускаем тесты! -->
-    <script>
-        mocha.run();
-    </script>
 </body>
 
 </html>
