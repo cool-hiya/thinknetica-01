@@ -1,0 +1,50 @@
+.calculator {
+    width: 300px;
+    margin: 60px auto;
+    outline: 1px solid gray;
+}
+
+.calculator.result .calculator-total {
+    color: black;
+    font-size: 28px;
+}
+
+.calculator.result .calculator-screen {
+    font-size: 20px;
+    color: gray;
+}
+
+.calculator-screen {
+    height: 200px;
+    overflow: hidden;
+    background-color: rgb(238, 238, 238);
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.calculator-value {
+    text-align: right;
+}
+
+.calculator-total {
+    font-size: 20px;
+    color: gray;
+}
+
+.calculator-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.calculator-controls button {
+    height: 70px;
+    outline: 1px solid gray;
+    border: 0;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
