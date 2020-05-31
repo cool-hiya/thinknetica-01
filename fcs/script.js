@@ -38,4 +38,6 @@ const report = flightReport(bigWorld, 'BH118', makeTime(8, 0));
 
 console.table(report);
 
-flightDetails(bigWorld, 'BH118');
+// flightDetails(bigWorld, 'BH118');
+
+initBuyTicketForm(bigWorld);

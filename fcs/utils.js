@@ -15,18 +15,11 @@ function makeTime(hours, minutes) {
     return date.getTime();
 }
 
-function displayFlights() {
-    console.log('*** List of all flights ***');
-    console.table(flights);
-}
 
 function random(from, to) {
     return Math.floor(Math.random() * (to - from) + from);
 }
 
-function isEnableToRegister(flight, nowTime) {
-    return nowTime >= flight.registrationStarts && nowTime <= flight.registrationEnds;
-}
 
 function isNumber(number) {
     return !isNaN(parseFloat(number)) && isFinite(number) && (typeof number === 'number');
