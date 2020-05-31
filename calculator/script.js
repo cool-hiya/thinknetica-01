@@ -7,58 +7,46 @@ let value = [0];
 let isLastOperator = false;
 let result = 0;
 
-let operators = new Map([
-    ['189', '-'],
-    ['187', '='],
-    ['187*', '+'],
-    ['56*', '*'],
-    ['191', '/'],
-]);
-
-let keys = new Map([
-    ['49', '1'],
-    ['50', '2'],
-    ['51', '3'],
-    ['52', '4'],
-    ['53', '5'],
-    ['54', '6'],
-    ['55', '7'],
-    ['56', '8'],
-    ['57', '9'],
-    ['48', '0'],
-    ['189', '-'],
-    ['187', '='],
-    ['187*', '+'],
-    ['56*', '*'],
-    ['191', '/'],
-    ['27', 'C']
-]);
+let keys = {
+    '1': {value: '1', isOperator: false},
+    '2': {value: '2', isOperator: false},
+    '3': {value: '3', isOperator: false},
+    '4': {value: '4', isOperator: false},
+    '5': {value: '5', isOperator: false},
+    '6': {value: '6', isOperator: false},
+    '7': {value: '7', isOperator: false},
+    '8': {value: '8', isOperator: false},
+    '9': {value: '9', isOperator: false},
+    '0': {value: '0', isOperator: false},
+    '-': {value: '-', isOperator: true},
+    '=': {value: '=', isOperator: true},
+    '+': {value: '+', isOperator: true},
+    '*': {value: '*', isOperator: true},
+    '/': {value: '/', isOperator: true},
+    'Escape': {value: 'C', isOperator: false},
+}
 
 initCalculator();
 
 document.addEventListener('keydown', (e) => {
-    let key = e.keyCode.toString();
+    let key = e.key;
 
-    if (e.shiftKey) {
-        key += '*';
-    }
-
-    if (keys.has(key)) {
+    if (keys[key]) {
         onControlClicked(key);
     }
 })
 
 function initCalculator() {
     controls.forEach(c => {
-        c.addEventListener('click', () => {onControlClicked(c.dataset.key)})
+        c.addEventListener('click', () => onControlClicked(c.dataset.key))
     });
 
     displayCalculation();
 }
 
 function onControlClicked(key) {
-    const operand = keys.get(key);
-    const isOperator = operators.has(key);
+    const operand = keys[key].value;
+    const isOperator = keys[key].isOperator;
 
     calculator.classList.remove('result');
 
