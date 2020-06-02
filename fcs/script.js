@@ -1,43 +1,39 @@
 'use strict';
 
-const result = addFlight(
-    bigWorld,
-    {
-        name: 'Airbus 747',
-        seats: 36,
-        businessSeats: 4,
-    },
+const world = new World();
+
+world.addFlight(
+    new Airliner('Airbus 747', 36, 4),
     makeTime(16, 0),
-    'BH118',
+    'BH118'
 );
 
-bigWorld = result.world;
+console.log(world);
 
-console.log(bigWorld);
+world.addFlight(
+    new Airliner('Airbus 749', 89, 14),
+    makeTime(14, 0),
+    'BH119'
+);
 
-let res = buyTicket(bigWorld, 'BH118', makeTime(5, 10), 'Petrov I. I.');
+console.log(world);
 
-bigWorld = res.world;
-console.log(bigWorld);
+world.buyTicket('BH118', makeTime(5, 10), 'Petrov I. I.');
 
-let res2 = buyTicket(bigWorld, 'BH118', makeTime(6, 10), 'Ivanov I. I.');
+console.log(world);
 
-console.log(bigWorld, res2.world);
+world.buyTicket('BH118', makeTime(6, 10), 'Ivanov I. I.');
 
-bigWorld = res2.world;
+console.log(world);
 
-console.log(bigWorld);
+world.eRegistration('BH118-0', 'Petrov I. I.', makeTime(11, 0));
 
-let res3 = eRegistration(bigWorld, 'BH118-0', 'Petrov I. I.', makeTime(11, 0));
+console.log(world);
 
-bigWorld = res3.world; 
-
-console.log(bigWorld);
-
-const report = flightReport(bigWorld, 'BH118', makeTime(8, 0));
+const report = world.flights['BH118'].report(makeTime(8, 0));
 
 console.table(report);
 
-// flightDetails(bigWorld, 'BH118');
+// // flightDetails(bigWorld, 'BH118');
 
-initBuyTicketForm(bigWorld);
+// initBuyTicketForm(bigWorld);
