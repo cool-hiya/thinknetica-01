@@ -17,7 +17,7 @@ function Dock(position = new Position(0, 0), ships = []) {
             throw new Error('Already moored');
         }
 
-        if ((this.position.x !== ship.position.x) || (this.position.y !== ship.position.y)) {
+        if (!this.position.isEqual(ship.position)) {
             throw new Error('Move to dock to moor');
         }
 

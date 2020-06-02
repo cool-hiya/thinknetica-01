@@ -1,31 +1,31 @@
 'use strict';
 
-const Ivan = new Student('Ivanov Ivan Ivanovich');
+const ivan = new Student('Ivanov Ivan Ivanovich');
 
-console.log('Created student', Ivan);
-console.log('Student fullname', Ivan.getFullName());
-console.log('Student initials', Ivan.getInitials());
-console.log('Student health', Ivan.isHealthy());
+console.log('Created student', ivan);
+console.log('Student fullname', ivan.getFullName());
+console.log('Student initials', ivan.getInitials());
+console.log('Student health', ivan.isHealthy());
 
-const Petr = new Student('Smirnov Petr Dimovich');
-console.log('Created student', Petr);
+const petr = new Student('Smirnov Petr Dimovich');
+console.log('Created student', petr);
 
-Petr.getSick();
-console.log('Student gets sick', Petr);
+petr.getSick();
+console.log('Student gets sick', petr);
 
-const Masha = new Student('Smirnova Maria Petrovna');
-console.log('Created student', Masha);
+const masha = new Student('Smirnova Maria Petrovna');
+console.log('Created student', masha);
 
-Masha.skipLesson();
-console.log('Student skips lesson', Masha);
+masha.skipLesson();
+console.log('Student skips lesson', masha);
 
 const groupA = new Group('A');
 
 console.log('Created group', groupA);
 
-groupA.addStudent(Petr);
-groupA.addStudent(Masha);
-groupA.addStudent(Ivan);
+groupA.addStudent(petr);
+groupA.addStudent(masha);
+groupA.addStudent(ivan);
 
 console.log('Added students', groupA);
 console.log('Absent students', groupA.getAbsentStudents());
