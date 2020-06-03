@@ -1,13 +1,13 @@
-'use strict';
-
 /**
- * @property {string} id
- * @property {string} flightName
- * @property {string} fullName
- * @property {0 | 1} type Тип места (0 - стандарт, 1 - бизнес)
- * @property {number} seat
- * @property {number} buyTime
- * @property {number} registrationTime Время прохождения электронной регистрации
+ * @type {Ticket}
+ * 
+ * @param {string} id
+ * @param {string} flightName
+ * @param {string} fullName
+ * @param {0 | 1} type Тип места (0 - стандарт, 1 - бизнес)
+ * @param {number} seat
+ * @param {number} buyTime
+ * @param {number} registrationTime Время прохождения электронной регистрации
  */
 
 function Ticket(id, flightName, fullName, type, seat, buyTime, registrationTime) {

@@ -1,10 +1,9 @@
-'use strict';
-
 /**
+ * @type {Airliner}
  * 
- * @property {string} name 
- * @property {number} seats 
- * @property {number} businessSeats 
+ * @param {string} name 
+ * @param {number} seats 
+ * @param {number} businessSeats 
  */
 function Airliner(name, seats, businessSeats) {
     this.name = name;

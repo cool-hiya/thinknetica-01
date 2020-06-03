@@ -1,15 +1,16 @@
+/**
+ * 
+ * @param {World} world 
+ * @param {string} flightName 
+ */
+
 function flightDetails(world, flightName) {
 
     if (typeof flightName !== 'string') {
         throw new Error('Flight name should be a string');
     }
 
-    const flights = world.flights;
-    const flight = flights[flightName];
-
-    if (!flight) {
-        throw new Error('The flight doesn\'t exist');
-    }
+    const flight = world.getFlight(flightName);
 
     const container = document.createElement('div');
     container.id = 'flight-details';
@@ -20,8 +21,8 @@ function flightDetails(world, flightName) {
 
     const description = [
         {title: '№ рейса', value: flight.name},
-        {title: 'Общее количество мест', value: flight.seats},
-        {title: 'Количество мест бизнес класса', value: flight.businessSeats},
+        {title: 'Общее количество мест', value: flight.airliner.seats},
+        {title: 'Количество мест бизнес класса', value: flight.airliner.businessSeats},
         {title: 'Время начала регистрации', value: formatDate(flight.registrationStarts)},
         {title: 'Время окончания регистрации', value: formatDate(flight.registrationEnds)}
     ]

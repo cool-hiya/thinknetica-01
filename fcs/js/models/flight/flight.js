@@ -1,10 +1,11 @@
-'use strict';
 /**
- * @property {string} name Номер рейса
- * @property {Airliner} airliner Самолет
- * @property {number} registrationStarts Время начала регистрации на борт
- * @property {number} registrationEnds Время окончания регистрации на борт
- * @property {Ticket[]} tickets Массив всех билетов
+ * @type {Flight}
+ * 
+ * @param {string} name Номер рейса
+ * @param {Airliner} airliner Самолет
+ * @param {number} registrationStarts Время начала регистрации на борт
+ * @param {number} registrationEnds Время окончания регистрации на борт
+ * @param {Ticket[]} tickets Массив всех билетов
  */
 function Flight(name, airliner, registrationStarts, registrationEnds, tickets) {
     this.name = name;
@@ -36,11 +37,15 @@ function Flight(name, airliner, registrationStarts, registrationEnds, tickets) {
             throw new Error('Passenger data is incorrect');
         }
 
-        if (isEnableToRegister(this, nowTime)) {
-            ticket.eRegistration(nowTime);
+        const newTicket = {...ticket};
+
+        if (utils.isEnableToRegister(this, nowTime)) {
+            newTicket.eRegistration(nowTime);
         } else {
             throw new Error('Invalid registartion time');
         }
+
+        this.tickets = Object.assign([], this.tickets, [newTicket]);
     }
 
     /**
@@ -121,7 +126,13 @@ function Flight(name, airliner, registrationStarts, registrationEnds, tickets) {
         } while (exists);
 
         const ticket = new Ticket(id, this.name, fullName, type, seat, buyTime, null);
-        this.tickets.push(ticket);
+        
+        this.tickets = [
+            ...this.tickets,
+            ticket
+        ]
+
+        return ticket;
     }
 
     /**
@@ -137,14 +148,14 @@ function Flight(name, airliner, registrationStarts, registrationEnds, tickets) {
      */
     this.report = function (nowTime) {
 
-        if (!isNumber(nowTime)) {
+        if (!helpers.isNumber(nowTime)) {
             throw new Error('Time param should be a number');
         }
 
         const countOfSeats = this.airliner.seats;
         const reservedSeats = this.tickets.length;
         const registeredSeats = this.tickets.filter(ticket => ticket.registrationTime != null).length;
-        const registration = isEnableToRegister(this, nowTime);
+        const registration = utils.isEnableToRegister(this, nowTime);
         const complete = nowTime >= this.registrationEnds;
 
         return new Report(this.name, registration, complete, countOfSeats, reservedSeats, registeredSeats);

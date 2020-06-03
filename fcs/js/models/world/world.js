@@ -1,14 +1,28 @@
-'use strict';
-
 /**
+ * @type {World}
  * 
- * @property {Flight[]} flights 
- * @property {Flight[]} history 
+ * @param {{string: Flight}} flights 
+ * @param {Flight[]} history 
  */
 
-function World(flights = [], history = []) {
+function World(flights = {}, history = []) {
     this.flights = flights;
     this.history = history;
+
+    /**
+     * Получение рейса
+     * 
+     * @param {string} flightName
+     */
+    this.getFlight = function (flightName) {
+        const flight = this.flights[flightName];
+
+        if (!flight) {
+            throw new Error('Flight not found');
+        }
+
+        return {...flight};
+    }
 
     /**
      * Добавление рейса
@@ -31,7 +45,6 @@ function World(flights = [], history = []) {
                 String.fromCharCode(CHARCODE_A + random(0, 26)),
                 random(100, 999)
             ].join('');
-            console.log(name);
         };
 
         const flight = new Flight(name, airliner, time - 5 * 3600 * 1000, time - 1 * 3600 * 1000, []);
@@ -60,23 +73,20 @@ function World(flights = [], history = []) {
      * @param {number} type Тип места
      */
     this.buyTicket = function (flightName, buyTime, fullName, type = 0) {
-        const flight = this.flights[flightName];
-
-        if (!flight) {
-            throw new Error('Flight not found');
-        }
-
-        flight.buyTicket(buyTime, fullName, type);
+        const flight = this.getFlight(flightName);
+        const ticket = flight.buyTicket(buyTime, fullName, type);
 
         this.flights = {
             ...this.flights,
-            [flightName]: {...flight},
+            [flightName]: flight,
         };
 
         this.history = [
             ...this.history,
             this.flights
         ]
+
+        return {...ticket}
     }
 
     /**
@@ -93,9 +103,14 @@ function World(flights = [], history = []) {
      */
     this.eRegistration = function (ticketId, fullName, nowTime) {
         const flightName = ticketId.split('-')[0];
-        const flight = this.flights[flightName];
+        const flight = this.getFlight(flightName);
 
         flight.eRegistration(ticketId, fullName, nowTime);
+
+        this.flights = {
+            ...this.flights,
+            [flightName]: flight,
+        };
 
         this.history = [
             ...this.history,
