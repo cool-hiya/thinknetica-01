@@ -62,7 +62,7 @@ Ship.prototype = {
     },
 
     getDistance: function () {
-        return this._distance();
+        return this._distance;
     },
 
     isAnchorDroped: function () {
