@@ -43,6 +43,6 @@ Dockyard.prototype = {
         if (!(ship instanceof this.shipConstructor)) {
             throw new Error('The dockyard doesn\'t exchange this type of ships');
         }
-        ship = this.build();
+        return this.build();
     }
 }
