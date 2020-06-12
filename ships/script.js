@@ -23,3 +23,15 @@ console.log('moor', dock);
 
 // dock.unmoor(ship);
 // console.log('ummoor', dock);
+
+const motorShip = new MotorShip('MotorShip', 'T345-32', 1000, 'steel');
+console.log(motorShip);
+
+const sailShip = new SailShip('SailShip', 'G-234');
+console.log(sailShip);
+
+const dockyard = new Dockyard(MotorShip);
+dockyard.repair(motorShip);
+
+dockyard.changeColor(ship, 'red');
+console.log(ship);
