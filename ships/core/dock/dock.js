@@ -8,11 +8,14 @@
 function Dock(position = new Position(0, 0), ships = []) {
     this.position = position;
     this.ships = ships;
+}
+
+Dock.prototype = {
 
     /**
      * @param {Ship} ship
      */
-    this.moor = function (ship) {
+    moor: function (ship) {
         if (this._hasShip(ship)) {
             throw new Error('Already moored');
         }
@@ -23,12 +26,12 @@ function Dock(position = new Position(0, 0), ships = []) {
 
         ship.dropAnchor();
         this.ships.push(ship);
-    }
+    },
 
     /**
      * @param {Ship} ship
      */
-    this.unmoor = function (ship) {
+    unmoor: function (ship) {
         if (!this._hasShip(ship)) {
             throw new Error('Not in the dock');
         }
@@ -36,12 +39,12 @@ function Dock(position = new Position(0, 0), ships = []) {
         const index = this.ships.findIndex(s => ship.name === s.name);
         this.ships.splice(index, 1);
         ship.riseAnchor();
-    }
+    },
 
     /**
      * @param {Ship} ship
      */
-    this._hasShip = function (ship) {
+    _hasShip: function (ship) {
         return !!this.ships.find(s => ship.name === s.name);
     }
 }
