@@ -24,10 +24,12 @@ class CustomPromise {
 
         if (this._status === 'fulfilled') {
             this._success.forEach(cb => cb(this._value));
+            this._success = [];
         }
 
         if (this._status === 'rejected') {
             this._error.forEach(cb => cb(this._value));
+            this._error = [];
         }
     }
 
@@ -79,6 +81,9 @@ promise3.catch(r => console.log('Promise ' + r));
 const promise4 = new CustomPromise();
 promise4.resolve(56);
 
+promise4.then(r => console.log(r));
+promise4.then(r => console.log(r));
+promise4.then(r => console.log(r));
 promise4.then(r => console.log(r));
 
 const promise5 = new CustomPromise();
