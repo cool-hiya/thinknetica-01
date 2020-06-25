@@ -31,6 +31,8 @@ class CustomPromise {
             this._error.forEach(cb => cb(this._value));
             this._error = [];
         }
+
+        return this;
     }
 
     catch(errorCallback) {
@@ -88,3 +90,14 @@ promise4.then(r => console.log(r));
 
 const promise5 = new CustomPromise();
 promise5.reject();
+
+const promise6 = new CustomPromise((resolve, reject) => {
+    setTimeout(() => resolve(23), 1000);
+});
+
+promise6
+    .then((r) => console.log(r))
+    .then(r => console.log('promise6 ' + r));
+
+promise6.then(r => console.log(r));
+promise6.then(r => console.log(r));
