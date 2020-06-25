@@ -28,8 +28,14 @@ groupA.addStudent(masha);
 groupA.addStudent(ivan);
 
 console.log('Added students', groupA);
-console.log('Absent students', groupA.getAbsentStudents());
 console.log('Sick students', groupA.getSickStudents());
 
-Petr.skipLesson();
-console.log('Absent students', groupA.getAbsentStudents());
+const lesson = new Lesson(groupA, new Date());
+
+console.log(lesson);
+console.log(lesson.getAbsentStudents());
+console.log(lesson.getStudents());
+console.log(lesson.getStudentsCount());
+
+petr.skipLesson();
+console.log(lesson.getAbsentStudents());

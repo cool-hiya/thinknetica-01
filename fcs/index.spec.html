@@ -18,20 +18,21 @@
 </head>
 
 <body>
-    <!-- добавляем скрипты -->
-    <script src="../types.js"></script>
-    <script src="../utils.js"></script>
-    <script src="../core/utils.js"></script>
-    <script src="../core/add-flight.js"></script>
-    <script src="../core/buy-ticket.js"></script>
-    <script src="../core/e-registration.js"></script>
-    <script src="../core/flight-report.js"></script>
-    <script src="../ui/flight-details.js"></script>
-    <script src="../script.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/models/world/world.js"></script>
+    <script src="js/models/airliner/airliner.js"></script>
+    <script src="js/models/ticket/ticket.js"></script>
+    <script src="js/models/flight/flight.js"></script>
+    <script src="js/models/report/report.js"></script>
 
-    <!-- <script src="../tests/e-registration.test.js"></script>
-    <script src="../tests/flight-report.test.js"></script> -->
-    <!-- <script src="../tests/flight-details.test.js"></script> -->
+    <script src="js/ui/flight-details/flight-details.js"></script>
+    <script src="js/ui/buy-ticket-form/buy-ticket-form.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Тесты -->
+    <!-- <script src="js/ui/flight-details/flight-details.spec.js"></script> -->
+    <script src="js/models/flight/flight.spec.js"></script>
 
     <!-- элемент с id="mocha" будет содержать результаты тестов -->
     <div id="mocha"></div>

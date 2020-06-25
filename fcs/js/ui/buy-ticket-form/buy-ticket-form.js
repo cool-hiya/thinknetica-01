@@ -21,10 +21,10 @@ function onFormSubmit(e, world, notification, successPopup) {
     notification.hidden = true;
 
     try {
-        const result = buyTicket(world, flightName, buyTime, fullName, type);
+        const result = world.buyTicket(flightName, buyTime, fullName, type);
         form.reset();
         successPopup.hidden = false;
-        successPopup.children[0].textContent = `Билет куплен! Ваше место: ${result.ticket.seat}`;
+        successPopup.children[0].textContent = `Here is your seat: ${result.seat}`;
     } catch (err) {
         notification.textContent = err.message;
         notification.hidden = false;

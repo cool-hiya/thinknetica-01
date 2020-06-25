@@ -12,6 +12,8 @@ function Student(fullName) {
     this.lastName = lastName;
     this.patronymic = patronymic;
 
+    this.hasLesson = false;
+
     this._fullName = fullName;
     this._isHealthy = true;
     this._isAbsent = false;
@@ -41,10 +43,16 @@ function Student(fullName) {
     }
 
     this.skipLesson = function () {
+        if (this.hasLesson) {
+            throw new Error("Lesson is in progress. Can't change student presence");
+        }
         this._isAbsent = true;
     }
 
     this.attendLesson = function () {
+        if (this.hasLesson) {
+            throw new Error("Lesson is in progress. Can't change student presence");
+        }
         this._isAbsent = false;
     }
 }
