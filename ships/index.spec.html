@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Testing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+    <!-- добавляем фреймворк тестирования mocha -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+    <script>mocha.setup('bdd');</script>
+    <!-- добавим chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+    <script>
+        // chai предоставляет большое количество функций. Объявим assert глобально
+        var assert = chai.assert;
+        var expect = chai.expect;
+    </script>
+</head>
+
+<body>
+    <script src="shared/position/position.js"></script>
+    <script src="core/ships/ship.js"></script>    
+    <script src="core/dockyard/dockyard.js"></script>
+    <script src="core/ships/motor-ship.js"></script>
+    <script src="core/ships/sail-ship.js"></script>
+    <script src="core/dock/dock.js"></script>
+    
+    <!-- добавляем скрипты -->
+    <script src="core/dock/dock.spec.js"></script>
+    <script src="shared/position/position.spec.js"></script>
+    <script src="core/ships/ships.spec.js"></script>
+    <script src="core/dockyard/dockyard.spec.js"></script>
+
+    <!-- <script src="../tests/e-registration.test.js"></script>
+    <script src="../tests/flight-report.test.js"></script> -->
+    <!-- <script src="../tests/flight-details.test.js"></script> -->
+
+    <!-- элемент с id="mocha" будет содержать результаты тестов -->
+    <div id="mocha"></div>
+
+    <!-- запускаем тесты! -->
+    <script>
+        mocha.run();
+    </script>
+</body>
+
+</html>
