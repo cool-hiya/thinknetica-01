@@ -23,12 +23,12 @@ class CustomPromise {
         }
 
         if (this._status === 'fulfilled') {
-            this._success.forEach(cb => cb(this._value));
+            this._success.forEach(cb => this._value = cb(this._value) || this._value);
             this._success = [];
         }
 
         if (this._status === 'rejected') {
-            this._error.forEach(cb => cb(this._value));
+            this._error.forEach(cb => this._value = cb(this._value) || this._value);
             this._error = [];
         }
 
@@ -43,14 +43,14 @@ class CustomPromise {
         this._status = 'fulfilled';
         this._value = value;
 
-        this._success.forEach(cb => cb(value));
+        this._success.forEach(cb => this._value = cb(this._value) || this._value);
     }
 
     _reject(value) {
         this._status = 'rejected';
         this._value = value;
 
-        this._error.forEach(cb => cb(value));
+        this._error.forEach(cb => this._value = cb(this._value) || this._value);
     }
 
     resolve(value) {
@@ -96,8 +96,8 @@ const promise6 = new CustomPromise((resolve, reject) => {
 });
 
 promise6
-    .then((r) => console.log(r))
+    .then((r) => r + 1)
     .then(r => console.log('promise6 ' + r));
 
-promise6.then(r => console.log(r));
-promise6.then(r => console.log(r));
+// promise6.then(r => console.log(r));
+// promise6.then(r => console.log(r));
