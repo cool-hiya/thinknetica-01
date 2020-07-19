@@ -1,0 +1,17 @@
+{
+    "name": "websocket_chat",
+    "version": "1.0.0",
+    "description": "Chat implementation",
+    "main": "ws_server.js",
+    "dependencies": {
+        "bufferutil": "^4.0.1",
+        "utf-8-validate": "^5.0.2",
+        "ws": "^7.3.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}
