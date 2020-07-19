@@ -5,7 +5,7 @@ socket.onopen = event => {
 };
 
 socket.onmessage = event => {
-    console.log("Message received: ", event.data);
+    console.log(event.data);
 };
 
 socket.onclose = event => {

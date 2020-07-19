@@ -4,6 +4,8 @@
     "description": "Chat implementation",
     "main": "ws_server.js",
     "dependencies": {
+        "bufferutil": "^4.0.1",
+        "utf-8-validate": "^5.0.2",
         "ws": "^7.3.0"
     },
     "devDependencies": {},
